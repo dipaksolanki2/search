@@ -1,0 +1,11 @@
+<div>
+    <form>
+        <label for="type">Type Here: </label>
+        <input type="text" id="type" [formControl]="typeHere">
+    </form>
+    <div>
+        <div *ngIf="typeHere.value">
+            <p>You typed: {{ typeHere.value }}</p>
+        </div>
+    </div>
+</div>

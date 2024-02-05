@@ -1,0 +1,39 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div formArrayName="products">
+    <div
+      *ngFor="let productGroup of getControls(); let i = index"
+      [formGroupName]="i"
+    >
+      <label for="productName">Product Name:</label>
+      <input id="productName" formControlName="productName" /><br /><br />
+
+      <label for="price">Price:</label>
+      <input type="number" id="price" formControlName="price" /><br /><br />
+
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea
+      ><br /><br />
+
+      <button
+        type="button"
+        (click)="removeProduct(i)"
+        *ngIf="getControls().length >= 1"
+      >
+        Remove Product
+      </button>
+    </div>
+  </div>
+
+  <button type="button" (click)="addProduct()">Add Product</button> &nbsp;
+  <button type="submit" [disabled]="productForm.invalid">Submit</button>
+</form>
+
+<div *ngIf="submitted">
+  <h4>Form Submitted!</h4>
+  <div *ngFor="let product of getControls(); let i = index">
+    <p>Product {{ i + 1 }}</p>
+    <p>Product Name: {{ product.get("productName").value }}</p>
+    <p>Price: {{ product.get("price").value }}</p>
+    <p>Description: {{ product.get("description").value }}</p>
+  </div>
+</div>
